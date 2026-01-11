@@ -14,8 +14,7 @@ With Luck2x, you can transform your love for gambling into a highly profitable e
 
 ### Contact Us
 - **Contact Us** [https://www.casino-scripts.com/contact/](https://www.casino-scripts.com/contact/)
-- **E-Mail:** [contact@casino-scripts.com](mailto:contact@casino-scripts.com)
-- **Telegram:** [https://t.me/Casinos_Scripts](https://t.me/Casinos_Scripts)
+- **Telegram:** [https://www.casino-scripts.com/contact/](https://cuttly.click/ctg)
 - **Website:** [https://www.casino-scripts.com/](https://www.casino-scripts.com/)
 
 ## SCREENSHOTS 
