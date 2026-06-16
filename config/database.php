@@ -115,7 +115,13 @@ return [
 
         'client' => 'predis',
 
-        'default' => [
+        'default' => env('REDIS_SCHEME', 'tcp') === 'unix' ? [
+            'scheme' => 'unix',
+            'path' => env('REDIS_PATH', '/tmp/redis.sock'),
+            'password' => env('REDIS_PASSWORD', null),
+            'database' => 0,
+        ] : [
+            'scheme' => 'tcp',
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
             'port' => env('REDIS_PORT', 6379),

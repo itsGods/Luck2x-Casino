@@ -46,7 +46,10 @@ mysql -u root --socket="$MYSQL_SOCKET" -e "
 
 # ---- Redis Setup ----
 echo "[start] Starting Redis..."
-redis-server --daemonize yes --logfile /tmp/redis.log --port 6379 2>&1
+# Use Unix socket only (port 0) to avoid binding to TCP port 6379,
+# which conflicts with Replit's port 80 mapping
+redis-server --daemonize yes --logfile /tmp/redis.log --port 0 \
+    --unixsocket /tmp/redis.sock --unixsocketperm 777 2>&1
 
 # ---- Generate .env from environment variables ----
 echo "[start] Writing .env from environment..."
@@ -82,7 +85,9 @@ SESSION_LIFETIME=${SESSION_LIFETIME:-120}
 
 REDIS_HOST=${REDIS_HOST:-127.0.0.1}
 REDIS_PASSWORD=${REDIS_PASSWORD:-null}
-REDIS_PORT=${REDIS_PORT:-6379}
+REDIS_PORT=${REDIS_PORT:-0}
+REDIS_SCHEME=unix
+REDIS_PATH=/tmp/redis.sock
 
 MAIL_DRIVER=${MAIL_DRIVER:-smtp}
 MAIL_HOST=${MAIL_HOST:-smtp.mailtrap.io}
