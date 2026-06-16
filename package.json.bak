@@ -26,8 +26,13 @@
         "acho": "^4.0.4",
         "dotenv": "^7.0.0",
         "express": "^4.16.4",
+        "fs": "0.0.1-security",
+        "http": "0.0.0",
+        "https": "^1.0.0",
         "mysql": "^2.18.1",
+        "node-telegram-bot-api": "^0.54.0",
         "redis": "^2.8.0",
-        "requestify": "^0.2.5"
+        "requestify": "^0.2.5",
+        "socket.io": "^2.1.1"
     }
 }

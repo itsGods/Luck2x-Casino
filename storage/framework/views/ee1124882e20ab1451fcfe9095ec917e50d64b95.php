@@ -406,7 +406,7 @@
                             <div class="side-nav-tooltip">King</div>
                         </a>
                     </li>           
-                    <li class="<?php echo e(Request::is('jackpot') ? 'current' : '' || Request::is('jackpot/history') ? 'current' : ''  || Request::is('jackpot/history/*') ? 'current' : ''); ?>">
+                    <li class="<?php echo e((Request::is('jackpot') || Request::is('jackpot/history') || Request::is('jackpot/history/*')) ? 'current' : ''); ?>">
                         <a class="" href="/jackpot">
                             <svg class="icon">
                                 <use xlink:href="/img/symbols.svg#icon-jackpot"></use>
@@ -1666,4 +1666,4 @@ color: #b3a0a0;
    </html>
 <?php endif; ?>
 <?php endif; ?>
-<?php /* /var/www/html/resources/views/layout.blade.php */ ?>
+<?php /* /home/runner/workspace/resources/views/layout.blade.php */ ?>
