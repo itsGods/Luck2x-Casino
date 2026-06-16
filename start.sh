@@ -144,6 +144,32 @@ SELECT 1, 'Luck2x', 'Luck2x Casino', 0, '***', 0, 1, 100, 0.05, 0, 5, 30, 1, 100
 WHERE NOT EXISTS (SELECT id FROM settings WHERE id = 1);
 " 2>/dev/null && echo "[start] Settings seeded." || echo "[start] Settings seed skipped (table may not exist yet)."
 
+# ---- Seed default admin account ----
+# Credentials are controlled by ADMIN_USERNAME / ADMIN_PASSWORD env vars.
+# Defaults: username=admin  password=admin123
+ADMIN_USER="${ADMIN_USERNAME:-admin}"
+ADMIN_PASS="${ADMIN_PASSWORD:-admin123}"
+ADMIN_PASS_HASH=$(php -r "echo hash('sha256', '${ADMIN_PASS}');")
+echo "[start] Seeding admin account (${ADMIN_USER})..."
+mysql -u "${DB_USERNAME:-luck2x}" -p"${DB_PASSWORD:-luck2x_pass}" --socket="$MYSQL_SOCKET" "${DB_DATABASE:-luck2x}" -e "
+INSERT INTO users (unique_id, user_id, username, password, avatar, ip, balance, ref_id, ban, is_admin, superadmin, created_at, updated_at)
+SELECT
+  'admin000001',
+  1,
+  '${ADMIN_USER}',
+  '${ADMIN_PASS_HASH}',
+  'https://vk.com/images/camera_200.png',
+  '127.0.0.1',
+  99999,
+  NULL,
+  0,
+  1,
+  1,
+  NOW(),
+  NOW()
+WHERE NOT EXISTS (SELECT id FROM users WHERE username = '${ADMIN_USER}');
+" 2>/dev/null && echo "[start] Admin account ready." || echo "[start] Admin seed skipped."
+
 # ---- Start PHP Built-in Server on port 5000 and port 6379 ----
 # Port 6379 is also mapped to external port 80 in .replit, so we serve on both
 # to prevent 502 errors when Replit's proxy routes to either port.

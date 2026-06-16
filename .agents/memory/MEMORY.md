@@ -1,2 +1,4 @@
-- [Laravel 5.8 on PHP 8.2 compatibility](laravel58-php82.md) — multiple vendor patches required to boot; Carbon and PackageManifest are the main blockers.
-- [Settings seed required on first run](settings-seed.md) — app 500s if settings table is empty; start.sh seeds default row on startup.
+- [Laravel 5.8 on PHP 8.2 patches](laravel58-php82-patches.md) — vendor files that must stay patched; never run composer update
+- [Port conflict fix](port-conflict-fix.md) — both port 5000 and 6379 map to external 80; Redis uses Unix socket; PHP serves on both ports
+- [Registration bugs fixed](registration-bugs.md) — three DB/code bugs that blocked user registration; all fixed in start.sh and AuthController
+- [Settings seed required on first run](settings-seed.md) — app 500s if settings table is empty; start.sh seeds default row on startup
