@@ -125,6 +125,17 @@ php $PHP_OPTS artisan view:clear 2>/dev/null || true
 echo "[start] Running migrations..."
 php $PHP_OPTS artisan migrate --force 2>/dev/null && echo "[start] Migrations done." || echo "[start] Migration failed or nothing to migrate."
 
+# Fix users table column constraints (name/email/password/ref_id must allow NULL
+# since this app uses username-based auth, not email-based)
+echo "[start] Fixing users table schema..."
+mysql -u "${DB_USERNAME:-luck2x}" -p"${DB_PASSWORD:-luck2x_pass}" --socket="$MYSQL_SOCKET" "${DB_DATABASE:-luck2x}" -e "
+ALTER TABLE users
+  MODIFY IF EXISTS name varchar(255) NULL DEFAULT NULL,
+  MODIFY IF EXISTS email varchar(255) NULL DEFAULT NULL,
+  MODIFY IF EXISTS password varchar(255) NULL DEFAULT NULL,
+  MODIFY IF EXISTS ref_id int NULL DEFAULT NULL;
+" 2>/dev/null && echo "[start] Users schema fixed." || echo "[start] Users schema fix skipped."
+
 # Seed default settings if not present
 echo "[start] Seeding default settings..."
 mysql -u "${DB_USERNAME:-luck2x}" -p"${DB_PASSWORD:-luck2x_pass}" --socket="$MYSQL_SOCKET" "${DB_DATABASE:-luck2x}" -e "
