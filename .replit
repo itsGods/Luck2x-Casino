@@ -15,10 +15,6 @@ localPort = 5000
 externalPort = 80
 
 [[ports]]
-localPort = 5001
-externalPort = 3001
-
-[[ports]]
 localPort = 5002
 externalPort = 3002
 
@@ -83,10 +79,10 @@ args = "Start application"
 name = "Start application"
 author = "agent"
 
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "bash start.sh"
 waitForPort = 5000
-
-[workflows.workflow.metadata]
-outputType = "webview"
