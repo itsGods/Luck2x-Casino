@@ -1,0 +1,2 @@
+- [Laravel 5.8 on PHP 8.2 compatibility](laravel58-php82.md) — multiple vendor patches required to boot; Carbon and PackageManifest are the main blockers.
+- [Settings seed required on first run](settings-seed.md) — app 500s if settings table is empty; start.sh seeds default row on startup.
